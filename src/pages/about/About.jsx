@@ -2,18 +2,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "tailwindcss/tailwind.css";
+import TEAM_MEMBER1 from "../../assets/teamMember1.jpg";
+import TEAM_MEMBER2 from "../../assets/teamMember2.jpg";
+import DESIGN1 from "../../assets/design1.jpg";
+
+
 
 // Sample author data
 const authors = [
   {
     name: "Muzamil Ali",
     bio: "Muzamil is a seasoned writer with a passion for technology and lifestyle. He loves exploring new trends and sharing his insights with readers.",
-    image: "src/assets/teamMember2.jpg", // Replace with actual path
+    image: TEAM_MEMBER2, // Replace with actual path
   },
   {
     name: "Meerab Mushtaq",
     bio: "Meerab is a tech enthusiast and avid blogger who enjoys delving into the latest gadgets and software. Her reviews and tips are a hit among our readers.",
-    image: "src/assets/teamMember1.jpg", // Replace with actual path
+    image: TEAM_MEMBER1, // Replace with actual path
   },
 ];
 
@@ -23,7 +28,7 @@ const AboutUs = () => {
       {/* Heading Image */}
       <div className="relative text-center mb-16">
         <img
-          src="src/assets/design1.jpg"
+          src={DESIGN1}
           alt="About Us Background"
           className="absolute inset-0 w-full h-full object-cover filter brightness-50"
         />
