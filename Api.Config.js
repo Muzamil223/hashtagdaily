@@ -1,5 +1,5 @@
 // Make sure this points to your backend
-export const BASE_API_URL = "http://localhost:8080";
+export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 
 // Add a test function to verify connection
 export const testApiConnection = async () => {
