@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Proxima+Nova");
-@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cinzel:wght@400..900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Forum&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Space+Grotesk:wght@300..700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -17,72 +16,220 @@
   scroll-behavior: smooth;
 }
 
-@layer components {
-  .input {
-    @apply sm:flex-1 max-sm:w-full text-base leading-normal text-slate-gray pl-5 max-sm:p-5 outline-none sm:border-none border max-sm:border-slate-gray max-sm:rounded-full;
+@layer base {
+  body {
+    @apply bg-neutral-50 text-neutral-800 font-Inter;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold font-Playfair text-neutral-900;
+  }
+  
+  a {
+    @apply no-underline transition-colors text-primary-600 hover:text-primary-700;
   }
 }
 
+@layer components {
+  .container-custom {
+    @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8;
+  }
 
-.playfair-display-<uniquifier > {
-  font-family: "Playfair Display", system-ui;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
+  .btn-primary {
+    @apply px-6 py-3 font-semibold text-white transition-all duration-300 rounded-lg bg-primary-600 hover:bg-primary-700 hover:shadow-medium transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 font-semibold text-white transition-all duration-300 rounded-lg bg-secondary-600 hover:bg-secondary-700 hover:shadow-medium transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
+  }
+
+  .card {
+    @apply overflow-hidden transition-all duration-300 bg-white rounded-xl shadow-soft hover:shadow-medium;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 transition-all duration-300 bg-white border rounded-lg border-neutral-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+
+  .section-title {
+    @apply mb-4 text-3xl font-bold md:text-4xl lg:text-5xl text-neutral-900;
+  }
+
+  .section-subtitle {
+    @apply max-w-2xl mx-auto mb-8 text-lg text-neutral-600;
+  }
+
+  /* Blog content styling */
+  .blog-content {
+    @apply max-w-none;
+  }
+  
+  .blog-content h1 {
+    @apply mb-4 text-4xl font-bold font-Playfair text-neutral-900;
+  }
+  
+  .blog-content h2 {
+    @apply mb-3 text-3xl font-semibold font-Playfair text-neutral-900;
+  }
+  
+  .blog-content h3 {
+    @apply mb-2 text-2xl font-semibold font-Playfair text-neutral-900;
+  }
+  
+  .blog-content h4 {
+    @apply mb-2 text-xl font-semibold font-Playfair text-neutral-900;
+  }
+  
+  .blog-content p {
+    @apply mb-4 leading-relaxed text-neutral-700;
+  }
+  
+  .blog-content a {
+    @apply no-underline transition-colors text-primary-600 hover:text-primary-700;
+  }
+  
+  .blog-content strong {
+    @apply font-semibold text-neutral-900;
+  }
+  
+  .blog-content ul {
+    @apply mb-4 list-disc list-inside;
+  }
+  
+  .blog-content ol {
+    @apply mb-4 list-decimal list-inside;
+  }
+  
+  .blog-content li {
+    @apply mb-1 text-neutral-700;
+  }
+  
+  .blog-content img {
+    @apply my-6 rounded-xl shadow-medium;
+  }
+  
+  .blog-content blockquote {
+    @apply pl-4 my-4 italic border-l-4 border-primary-500 text-neutral-600;
+  }
+  
+  .blog-content code {
+    @apply px-1 py-0.5 bg-neutral-100 rounded text-sm font-mono;
+  }
+  
+  .blog-content pre {
+    @apply p-4 my-4 overflow-x-auto rounded-lg bg-neutral-900 text-neutral-100;
+  }
+  
+  .blog-content pre code {
+    @apply p-0 bg-transparent text-neutral-100;
+  }
+  
+  .blog-content hr {
+    @apply my-8 border-neutral-200;
+  }
 }
 
 @layer utilities {
-  .padding {
-    @apply sm:px-16 px-8 sm:py-24 py-12;
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
   }
 
-  .padding-x {
-    @apply sm:px-16 px-8;
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
   }
 
-  .padding-y {
-    @apply sm:py-24 py-12;
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
   }
 
-  .padding-l {
-    @apply sm:pl-16 pl-8;
+  .text-gradient {
+    @apply text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text;
   }
 
-  .padding-r {
-    @apply sm:pr-16 pr-8;
-  }
-
-  .padding-t {
-    @apply sm:pt-24 pt-12;
-  }
-
-  .padding-b {
-    @apply sm:pb-24 pb-12;
-  }
-
-  .info-text {
-    @apply font-montserrat text-slate-gray text-lg leading-7;
+  .bg-gradient-custom {
+    @apply bg-gradient-to-br from-primary-50 to-secondary-50;
   }
 }
 
-.blog-content h2 {
-  @apply text-2xl font-semibold text-gray-900 mb-4;
+/* Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.blog-content ul {
-  @apply list-disc pl-5 mb-4;
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-.blog-content li {
-  @apply text-gray-700 mb-2;
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-.blog-content p {
-  @apply mb-4 text-gray-700;
+/* Add these animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.blog-content img {
-  @apply my-4 rounded-md shadow-lg;
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
 }
 
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Add to your index.css */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Image loading blur effect */
+img {
+  transition: filter 0.3s ease-in-out;
+}
+
+img.loading {
+  filter: blur(10px);
+}
+
+img.loaded {
+  filter: blur(0);
+}
