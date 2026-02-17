@@ -77,22 +77,22 @@ const BlogDetails = () => {
 
   return (
     <div className="relative">
-      {/* Hero Image Container */}
-      <div className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden">
-        <OptimizedImage
+      {/* Hero Image Container - Fixed for mobile */}
+      <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[90vh] overflow-hidden">
+        {/* Use regular img tag to ensure proper rendering */}
+        <img
           src={blog.image}
           alt={blog.title}
-          className="object-cover w-full h-full"
-          category={blog.category?.[0]}
-          priority={true}
-          width={1920}
-          height={1080}
+          className="absolute inset-0 object-cover w-full h-full"
+          onError={(e) => {
+            e.target.src = 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200';
+          }}
         />
+        
+        {/* Dark Gradient Overlay - Enhanced for better text visibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
 
-        {/* Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20"></div>
-
-        {/* Centered Title Card */}
+        {/* Centered Title Card - Adjusted for mobile */}
         <div className="absolute inset-0 flex items-center justify-center px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -106,77 +106,84 @@ const BlogDetails = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="inline-block px-4 py-2 mb-6 text-sm font-medium text-white rounded-full shadow-lg bg-amber-600"
+                className="inline-block px-3 py-1 mb-3 text-xs font-medium text-white rounded-full shadow-lg md:px-4 md:py-2 md:mb-6 md:text-sm bg-amber-600"
               >
                 {blog.category[0]}
               </motion.span>
             )}
 
-            {/* Title */}
+            {/* Title - Responsive sizing */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mb-6 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl font-Playfair drop-shadow-lg"
+              className="px-2 mb-3 text-xl font-bold leading-tight text-white md:mb-6 md:text-3xl lg:text-4xl xl:text-5xl font-Playfair drop-shadow-lg"
             >
               {blog.title}
             </motion.h1>
 
-            {/* Author and Meta Info */}
+            {/* Author and Meta Info - Compact on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex flex-wrap items-center justify-center gap-6 text-gray-200"
+              className="flex flex-wrap items-center justify-center gap-3 text-xs text-gray-200 md:gap-6 md:text-base"
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1 md:space-x-2">
                 <div className="p-1 rounded-lg bg-amber-500/20">
-                  <TbUser className="w-5 h-5 text-amber-400" />
+                  <TbUser className="w-3 h-3 text-amber-400 md:w-4 md:h-4 lg:w-5 lg:h-5" />
                 </div>
-                <span className="font-Inter">{blog.authorName}</span>
+                <span className="font-Inter truncate max-w-[80px] md:max-w-none">{blog.authorName}</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1 md:space-x-2">
                 <div className="p-1 rounded-lg bg-amber-500/20">
-                  <TbClock className="w-5 h-5 text-amber-400" />
+                  <TbClock className="w-3 h-3 text-amber-400 md:w-4 md:h-4 lg:w-5 lg:h-5" />
                 </div>
                 <span className="font-Inter">{blog.readTime}</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1 md:space-x-2">
                 <div className="p-1 rounded-lg bg-amber-500/20">
-                  <TbCalendar className="w-5 h-5 text-amber-400" />
+                  <TbCalendar className="w-3 h-3 text-amber-400 md:w-4 md:h-4 lg:w-5 lg:h-5" />
                 </div>
-                <span className="font-Inter">{formattedDate}</span>
+                <span className="hidden font-Inter sm:inline">{formattedDate}</span>
+                <span className="font-Inter sm:hidden">
+                  {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </span>
               </div>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - Adjusted for mobile */}
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute z-20 transform -translate-x-1/2 bottom-8 left-1/2"
+          className="absolute z-20 transform -translate-x-1/2 bottom-4 left-1/2 md:bottom-8"
         >
-          <div className="flex justify-center w-6 h-10 border-2 rounded-full border-white/30 backdrop-blur-sm">
-            <div className="w-1 h-2 mt-2 bg-white rounded-full animate-pulse"></div>
+          <div className="flex justify-center w-5 h-8 border-2 rounded-full border-white/30 backdrop-blur-sm md:w-6 md:h-10">
+            <div className="w-0.5 h-1.5 mt-2 bg-white rounded-full animate-pulse md:w-1 md:h-2"></div>
           </div>
         </motion.div>
       </div>
 
       {/* Content Section */}
-      <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        {/* Back Button - Now properly placed in the content area */}
+      <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8 md:py-16">
+        {/* Back Button */}
         <motion.button
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           onClick={() => navigate(-1)}
-          className="flex items-center px-4 py-2 mb-8 space-x-2 text-gray-600 transition-colors bg-white border border-gray-200 shadow-md rounded-xl hover:bg-gray-50 hover:border-gray-300 group w-fit"
+          className="flex items-center px-3 py-1.5 mb-4 space-x-1 text-gray-600 transition-colors bg-white border border-gray-200 shadow-md rounded-xl hover:bg-gray-50 hover:border-gray-300 group w-fit md:px-4 md:py-2 md:mb-8 md:space-x-2"
         >
-          <TbArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
-          <span className="text-sm font-medium font-Inter">Back to Blogs</span>
+          <TbArrowLeft className="w-4 h-4 transition-transform md:w-5 md:h-5 group-hover:-translate-x-1" />
+          <span className="text-xs font-medium md:text-sm font-Inter">Back to Blogs</span>
         </motion.button>
 
-        <div className="flex flex-col gap-8 lg:flex-row">
+        <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
           {/* Main Content */}
           <div className="lg:w-2/3">
             <motion.div
@@ -184,31 +191,31 @@ const BlogDetails = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="p-8 bg-white shadow-xl rounded-3xl"
+              className="p-4 bg-white shadow-xl md:p-8 rounded-2xl md:rounded-3xl"
             >
-              <h2 className="pb-4 mb-6 text-2xl font-bold text-gray-900 border-b border-gray-100 font-Playfair">
+              <h2 className="pb-3 mb-4 text-xl font-bold text-gray-900 border-b border-gray-100 md:pb-4 md:mb-6 md:text-2xl font-Playfair">
                 About this Article
               </h2>
 
               <div
-                className="prose prose-lg max-w-none prose-headings:font-Playfair prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-img:rounded-xl prose-img:shadow-lg"
+                className="prose-sm prose max-w-none prose-headings:font-Playfair prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-img:rounded-xl prose-img:shadow-lg md:prose-base lg:prose-lg"
                 dangerouslySetInnerHTML={{ __html: blog.description }}
               />
 
               {/* Tags */}
               {blog.tags && blog.tags.length > 0 && (
-                <div className="pt-8 mt-8 border-t border-gray-100">
-                  <div className="flex items-start gap-3">
-                    <TbTags className="flex-shrink-0 w-5 h-5 mt-1 text-amber-600" />
+                <div className="pt-6 mt-6 border-t border-gray-100 md:pt-8 md:mt-8">
+                  <div className="flex items-start gap-2 md:gap-3">
+                    <TbTags className="flex-shrink-0 w-4 h-4 mt-1 text-amber-600 md:w-5 md:h-5" />
                     <div>
-                      <h3 className="mb-3 text-lg font-semibold text-gray-900 font-Playfair">
+                      <h3 className="mb-2 text-base font-semibold text-gray-900 md:mb-3 md:text-lg font-Playfair">
                         Tags
                       </h3>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1 md:gap-2">
                         {blog.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-4 py-2 text-sm text-gray-700 transition-all duration-300 bg-gray-100 rounded-full cursor-pointer hover:bg-amber-600 hover:text-white"
+                            className="px-2 py-1 text-xs text-gray-700 transition-all duration-300 bg-gray-100 rounded-full cursor-pointer md:px-3 md:py-1.5 md:text-sm hover:bg-amber-600 hover:text-white"
                           >
                             #{tag}
                           </span>

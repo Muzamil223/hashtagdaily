@@ -2,11 +2,12 @@ import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Routes, Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "./components/Loader";
 
 // Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Loader from "./components/Loader";
+// import Loader from "./components/Loader";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // Lazy load pages for better performance
@@ -20,9 +21,7 @@ const CreateBlog = lazy(() => import("./pages/blogs/BlogsForm"));
 
 // Loading fallback component
 const PageLoader = () => (
-  <div className="flex items-center justify-center min-h-[60vh]">
-    <Loader />
-  </div>
+   <Loader />
 );
 
 // Scroll to top on route change
@@ -45,7 +44,7 @@ const Layout = () => {
     <ErrorBoundary>
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-neutral-50 to-white">
         <Navbar />
-        <main className="flex-grow pt-16 lg:pt-19">
+        <main className="flex-grow">
           <Suspense fallback={<PageLoader />}>
             <Outlet /> {/* This renders the child routes */}
           </Suspense>
@@ -104,7 +103,7 @@ export default function App() {
           <Route path="blogs" element={<BlogsPage />} />
           <Route path="blogs/:id" element={<BlogDetails />} />
           <Route path="create-blog" element={<CreateBlog />} />
-          
+
           {/* 404 Route - Catch all unmatched routes */}
           <Route path="*" element={<NotFound />} />
         </Route>

@@ -37,22 +37,22 @@ const BlogHeader = () => {
     },
   ];
 
-  // Custom Arrow Components
+  // Custom Arrow Components - Enhanced for mobile
   const PrevArrow = ({ onClick }) => (
     <button
       onClick={onClick}
-      className="absolute z-20 flex items-center justify-center transition-all duration-300 -translate-y-1/2 border left-8 top-1/2 w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl border-white/20 hover:bg-white/20 hover:scale-110 group"
+      className="absolute z-20 flex items-center justify-center w-8 h-8 transition-all duration-300 -translate-y-1/2 border rounded-full left-2 md:left-8 top-1/2 md:w-14 md:h-14 bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20 hover:scale-110 group"
     >
-      <FaChevronLeft className="w-6 h-6 text-white transition-transform group-hover:-translate-x-1" />
+      <FaChevronLeft className="w-3 h-3 text-white transition-transform md:w-6 md:h-6 group-hover:-translate-x-1" />
     </button>
   );
 
   const NextArrow = ({ onClick }) => (
     <button
       onClick={onClick}
-      className="absolute z-20 flex items-center justify-center transition-all duration-300 -translate-y-1/2 border right-8 top-1/2 w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl border-white/20 hover:bg-white/20 hover:scale-110 group"
+      className="absolute z-20 flex items-center justify-center w-8 h-8 transition-all duration-300 -translate-y-1/2 border rounded-full right-2 md:right-8 top-1/2 md:w-14 md:h-14 bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20 hover:scale-110 group"
     >
-      <FaChevronRight className="w-6 h-6 text-white transition-transform group-hover:translate-x-1" />
+      <FaChevronRight className="w-3 h-3 text-white transition-transform md:w-6 md:h-6 group-hover:translate-x-1" />
     </button>
   );
 
@@ -72,19 +72,28 @@ const BlogHeader = () => {
     fade: true,
     cssEase: "cubic-bezier(0.7, 0, 0.3, 1)",
     appendDots: (dots) => (
-      <div className="absolute z-20 -translate-x-1/2 bottom-8 left-1/2">
-        <ul className="flex space-x-3">{dots}</ul>
+      <div className="absolute z-20 -translate-x-1/2 bottom-4 md:bottom-8 left-1/2">
+        <ul className="flex space-x-2 md:space-x-3">{dots}</ul>
       </div>
     ),
     customPaging: (i) => (
       <div
-        className={`w-3 h-3 rounded-full transition-all duration-500 cursor-pointer ${
+        className={`rounded-full transition-all duration-500 cursor-pointer ${
           i === currentSlide
-            ? "bg-amber-500 scale-125 shadow-lg"
-            : "bg-white/50 hover:bg-white/80"
+            ? "bg-amber-500 w-4 md:w-3 h-1 md:h-3 scale-125 shadow-lg"
+            : "bg-white/50 hover:bg-white/80 w-2 h-1 md:w-3 md:h-3"
         }`}
       />
     ),
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: true,
+          dots: true,
+        }
+      }
+    ]
   };
 
   const toggleAutoplay = () => {
@@ -97,10 +106,10 @@ const BlogHeader = () => {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-screen overflow-hidden">
       <Slider ref={sliderRef} {...settings} className="h-full">
         {carouselData.map((item, index) => (
-          <div key={item.id} className="relative w-full h-screen">
+          <div key={item.id} className="relative w-full h-[60vh] sm:h-[70vh] md:h-screen">
             {/* Background Image with Parallax Effect */}
             <div
               className="absolute inset-0 transition-transform transform scale-105 bg-center bg-cover duration-10000"
@@ -112,33 +121,33 @@ const BlogHeader = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
             </div>
 
-            {/* Animated Shapes */}
-            <div className="absolute inset-0 overflow-hidden">
+            {/* Animated Shapes - Hidden on mobile for better performance */}
+            <div className="absolute inset-0 hidden overflow-hidden md:block">
               <div className="absolute w-64 h-64 rounded-full top-20 left-20 bg-gradient-to-r from-amber-500/20 to-brown-500/20 blur-3xl animate-pulse"></div>
               <div className="absolute delay-1000 rounded-full bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-brown-500/20 to-amber-500/20 blur-3xl animate-pulse"></div>
             </div>
 
-            {/* Content */}
-            <div className="relative flex items-center h-full container-custom">
-              <div className="max-w-3xl">
+            {/* Content - Enhanced mobile padding and text sizing */}
+            <div className="relative flex items-center h-full px-4 sm:px-6 md:px-8 container-custom">
+              <div className="w-full max-w-3xl">
                 {/* Category Badge */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="inline-block mb-6"
+                  className="inline-block mb-3 md:mb-6"
                 >
-                  <span className="px-4 py-2 text-sm tracking-wider text-white border rounded-full bg-white/10 backdrop-blur-md font-Inter border-white/20">
+                  <span className="px-3 py-1 text-xs tracking-wider text-white border rounded-full md:px-4 md:py-2 md:text-sm bg-white/10 backdrop-blur-md font-Inter border-white/20">
                     {item.category}
                   </span>
                 </motion.div>
 
-                {/* Main Title - Fixed spacing and color */}
+                {/* Main Title - Responsive text sizing */}
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
-                  className="text-5xl md:text-7xl lg:text-8xl font-bold font-Playfair mb-6 leading-[1.1] text-white"
+                  className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold font-Playfair mb-3 md:mb-6 leading-tight md:leading-[1.1] text-white"
                 >
                   {item.title.split(" ").map((word, i) => (
                     <React.Fragment key={i}>
@@ -146,33 +155,33 @@ const BlogHeader = () => {
                         {word}
                       </span>
                       {i < item.title.split(" ").length - 1 && (
-                        <span className="inline-block w-4">&nbsp;</span>
+                        <span className="inline-block w-2 md:w-4">&nbsp;</span>
                       )}
                     </React.Fragment>
                   ))}
                 </motion.h1>
 
-                {/* Subtitle - Fixed color */}
+                {/* Subtitle - Responsive text sizing */}
                 <motion.h2
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.5 }}
-                  className="mb-6 text-2xl md:text-3xl font-Forum text-amber-300"
+                  className="mb-3 text-lg md:mb-6 md:text-2xl lg:text-3xl font-Forum text-amber-300"
                 >
                   {item.subtitle}
                 </motion.h2>
 
-                {/* Description - Fixed color */}
+                {/* Description - Hide on smallest screens if needed, or adjust */}
                 <motion.p
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.7 }}
-                  className="max-w-2xl mb-8 text-lg leading-relaxed text-gray-200 md:text-xl"
+                  className="hidden max-w-2xl mb-6 text-sm leading-relaxed text-gray-200 sm:block md:text-base lg:text-lg md:mb-8"
                 >
                   {item.description}
                 </motion.p>
 
-                {/* CTA Button */}
+                {/* CTA Button - Responsive sizing */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -180,13 +189,13 @@ const BlogHeader = () => {
                 >
                   <Link
                     to="/blogs"
-                    className="relative inline-flex items-center px-8 py-4 space-x-4 overflow-hidden transition-all duration-500 shadow-2xl group bg-gradient-to-r from-amber-600 to-brown-600 rounded-xl hover:shadow-amber-500/25"
+                    className="relative inline-flex items-center px-4 py-2 space-x-2 overflow-hidden transition-all duration-500 shadow-2xl md:px-8 md:py-4 md:space-x-4 group bg-gradient-to-r from-amber-600 to-brown-600 rounded-xl hover:shadow-amber-500/25"
                   >
                     <span className="absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></span>
-                    <span className="relative text-xl tracking-wide text-white font-Forum">
+                    <span className="relative text-sm tracking-wide text-white md:text-xl font-Forum">
                       {item.cta}
                     </span>
-                    <TbArrowRight className="relative w-5 h-5 text-white transition-transform group-hover:translate-x-2" />
+                    <TbArrowRight className="relative w-4 h-4 text-white transition-transform md:w-5 md:h-5 group-hover:translate-x-2" />
                   </Link>
                 </motion.div>
               </div>
@@ -195,24 +204,24 @@ const BlogHeader = () => {
         ))}
       </Slider>
 
-      {/* Autoplay Control */}
+      {/* Autoplay Control - Adjusted for mobile */}
       <button
         onClick={toggleAutoplay}
-        className="absolute z-20 flex items-center justify-center w-12 h-12 transition-all duration-300 border rounded-full bottom-8 right-8 bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20"
+        className="absolute z-20 flex items-center justify-center w-8 h-8 transition-all duration-300 border rounded-full bottom-4 right-4 md:bottom-8 md:right-8 md:w-12 md:h-12 bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20"
       >
         {isPlaying ? (
-          <FaPause className="w-4 h-4 text-white" />
+          <FaPause className="w-3 h-3 text-white md:w-4 md:h-4" />
         ) : (
-          <FaPlay className="w-4 h-4 text-white" />
+          <FaPlay className="w-3 h-3 text-white md:w-4 md:h-4" />
         )}
       </button>
 
-      {/* Slide Counter */}
-      <div className="absolute z-20 text-sm bottom-8 left-8 text-white/80 font-Inter">
-        <span className="text-2xl font-bold text-white">
+      {/* Slide Counter - Adjusted for mobile */}
+      <div className="absolute z-20 text-xs bottom-4 left-4 md:bottom-8 md:left-8 text-white/80 font-Inter md:text-sm">
+        <span className="text-base font-bold text-white md:text-2xl">
           {String(currentSlide + 1).padStart(2, "0")}
         </span>
-        <span className="mx-2">/</span>
+        <span className="mx-1 md:mx-2">/</span>
         <span>{String(carouselData.length).padStart(2, "0")}</span>
       </div>
     </div>

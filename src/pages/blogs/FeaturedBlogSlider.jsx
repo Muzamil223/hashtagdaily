@@ -36,18 +36,18 @@ const FeaturedBlogSlider = () => {
   const PrevArrow = ({ onClick }) => (
     <button
       onClick={onClick}
-      className="absolute z-20 flex items-center justify-center w-12 h-12 transition-all duration-300 -translate-y-1/2 border rounded-full left-6 md:left-10 top-1/2 md:w-14 md:h-14 bg-black/30 backdrop-blur-md border-white/30 hover:bg-black/50 hover:scale-110 group"
+      className="absolute z-20 flex items-center justify-center w-10 h-10 transition-all duration-300 -translate-y-1/2 border rounded-full left-4 md:left-8 lg:left-12 top-1/2 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-black/30 backdrop-blur-md border-white/30 hover:bg-black/50 hover:scale-110 group"
     >
-      <FaChevronLeft className="w-5 h-5 text-white transition-transform md:w-6 md:h-6 group-hover:-translate-x-1" />
+      <FaChevronLeft className="w-4 h-4 text-white md:w-5 md:h-5 lg:w-6 lg:h-6" />
     </button>
   );
 
   const NextArrow = ({ onClick }) => (
     <button
       onClick={onClick}
-      className="absolute z-20 flex items-center justify-center w-12 h-12 transition-all duration-300 -translate-y-1/2 border rounded-full right-6 md:right-10 top-1/2 md:w-14 md:h-14 bg-black/30 backdrop-blur-md border-white/30 hover:bg-black/50 hover:scale-110 group"
+      className="absolute z-20 flex items-center justify-center w-10 h-10 transition-all duration-300 -translate-y-1/2 border rounded-full right-4 md:right-8 lg:right-12 top-1/2 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-black/30 backdrop-blur-md border-white/30 hover:bg-black/50 hover:scale-110 group"
     >
-      <FaChevronRight className="w-5 h-5 text-white transition-transform md:w-6 md:h-6 group-hover:translate-x-1" />
+      <FaChevronRight className="w-4 h-4 text-white md:w-5 md:h-5 lg:w-6 lg:h-6" />
     </button>
   );
 
@@ -67,16 +67,16 @@ const FeaturedBlogSlider = () => {
     fade: true,
     cssEase: "cubic-bezier(0.7, 0, 0.3, 1)",
     appendDots: (dots) => (
-      <div className="absolute z-20 -translate-x-1/2 bottom-8 left-1/2">
-        <ul className="flex space-x-3">{dots}</ul>
+      <div className="absolute z-20 -translate-x-1/2 bottom-4 md:bottom-8 left-1/2">
+        <ul className="flex space-x-2 md:space-x-3">{dots}</ul>
       </div>
     ),
     customPaging: (i) => (
       <button
-        className={`h-2.5 rounded-full transition-all duration-500 ${
+        className={`rounded-full transition-all duration-500 ${
           i === currentSlide
-            ? "bg-amber-500 w-8"
-            : "bg-white/50 hover:bg-white/80 w-2.5"
+            ? "bg-amber-500 w-6 md:w-8 h-1.5 md:h-2.5"
+            : "bg-white/50 hover:bg-white/80 w-2 md:w-2.5 h-1.5 md:h-2.5"
         }`}
       />
     ),
@@ -94,26 +94,29 @@ const FeaturedBlogSlider = () => {
   if (blogs.length === 0) return null;
 
   return (
-    <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] h-[70vh] md:h-[80vh] lg:h-[90vh] overflow-hidden">
+    <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] h-screen overflow-hidden">
       <Slider ref={sliderRef} {...settings} className="h-full">
         {blogs.map((blog, index) => (
           <div
             key={blog._id}
-            className="relative h-[70vh] md:h-[80vh] lg:h-[90vh] w-full outline-none"
+            className="relative w-full h-screen outline-none"
           >
             {/* Background Image */}
-            <div className="absolute inset-0">
-              <OptimizedImage
+            <div className="absolute inset-0 w-full h-full">
+              <img
                 src={blog.image}
                 alt={blog.title}
-                className="object-cover w-full h-full"
+                className="absolute inset-0 object-cover w-full h-full"
+                onError={(e) => {
+                  e.target.src = 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200';
+                }}
               />
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
             </div>
 
             {/* Animated Shapes */}
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 hidden overflow-hidden md:block">
               <motion.div
                 animate={{
                   scale: [1, 1.2, 1],
@@ -132,36 +135,37 @@ const FeaturedBlogSlider = () => {
               />
             </div>
 
-            {/* Content */}
-            {/* Content - Changed from items-center to items-end for bottom alignment */}
-            <div className="absolute inset-0 flex items-end pb-16 md:pb-24 lg:pb-32">
+            {/* Content - Perfectly centered on desktop */}
+            <div className="absolute inset-0 flex items-center justify-center">
               <div className="container-custom">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
-                  className="max-w-3xl text-white"
+                  className="max-w-3xl mx-auto text-center"
                 >
                   {/* Featured Badge */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="inline-flex items-center px-4 py-2 mb-6 space-x-2 rounded-full bg-amber-500"
+                    className="flex justify-center mb-4 md:mb-6"
                   >
-                    <span className="relative flex w-2 h-2">
-                      <span className="absolute inline-flex w-full h-full bg-white rounded-full opacity-75 animate-ping"></span>
-                      <span className="relative inline-flex w-2 h-2 bg-white rounded-full"></span>
+                    <span className="inline-flex items-center px-4 py-2 space-x-2 rounded-full bg-amber-500">
+                      <span className="relative flex w-2 h-2">
+                        <span className="absolute inline-flex w-full h-full bg-white rounded-full opacity-75 animate-ping"></span>
+                        <span className="relative inline-flex w-2 h-2 bg-white rounded-full"></span>
+                      </span>
+                      <span className="text-sm font-medium">Featured Story</span>
                     </span>
-                    <span className="text-sm font-medium">Featured Story</span>
                   </motion.div>
 
-                  {/* Title - ADDED TEXT COLOR */}
+                  {/* Title */}
                   <motion.h2
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="mb-4 text-3xl font-bold leading-tight text-white md:text-5xl lg:text-6xl font-Playfair"
+                    className="max-w-4xl px-4 mx-auto mb-4 text-2xl font-bold leading-tight text-white md:text-4xl lg:text-5xl xl:text-6xl font-Playfair md:mb-6"
                   >
                     {blog.title}
                   </motion.h2>
@@ -171,78 +175,83 @@ const FeaturedBlogSlider = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="max-w-2xl mb-6 text-base leading-relaxed text-gray-200 md:text-lg"
+                    className="hidden max-w-2xl px-4 mx-auto mb-6 text-base leading-relaxed text-gray-200 sm:block md:text-lg lg:text-xl md:mb-8"
                   >
-                    {stripHtmlTags(blog.description).substring(0, 200)}...
+                    {stripHtmlTags(blog.description).substring(0, 180)}...
                   </motion.p>
 
-                  {/* Meta Info */}
+                  {/* Meta Info - Centered */}
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
-                    className="flex flex-wrap items-center gap-6 mb-8"
+                    className="flex flex-wrap items-center justify-center gap-4 mb-6 md:gap-6 md:mb-8"
                   >
                     <div className="flex items-center space-x-2">
-                      <TbUser className="w-5 h-5 text-amber-400" />
-                      <span className="text-sm text-white">
+                      <TbUser className="w-4 h-4 text-amber-400 md:w-5 md:h-5" />
+                      <span className="text-sm text-white md:text-base">
                         {blog.authorName}
                       </span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <TbClock className="w-5 h-5 text-amber-400" />
-                      <span className="text-sm text-white">
+                      <TbClock className="w-4 h-4 text-amber-400 md:w-5 md:h-5" />
+                      <span className="text-sm text-white md:text-base">
                         {blog.readTime}
                       </span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <TbCalendar className="w-5 h-5 text-amber-400" />
-                      <span className="text-sm text-white">
+                      <TbCalendar className="w-4 h-4 text-amber-400 md:w-5 md:h-5" />
+                      <span className="text-sm text-white md:text-base">
                         {new Date(blog.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                   </motion.div>
 
-                  {/* Tags */}
+                  {/* Tags - Centered */}
                   {blog.tags && blog.tags.length > 0 && (
                     <motion.div
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.6 }}
-                      className="flex flex-wrap gap-2 mb-8"
+                      className="flex flex-wrap justify-center gap-2 mb-6 md:gap-3 md:mb-8"
                     >
                       {blog.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1 text-xs text-white border rounded-full bg-white/10 backdrop-blur-sm border-white/20"
+                          className="px-3 py-1 text-xs text-white border rounded-full md:px-4 md:py-1.5 md:text-sm bg-white/10 backdrop-blur-sm border-white/20"
                         >
                           #{tag}
                         </span>
                       ))}
+                      {blog.tags.length > 3 && (
+                        <span className="px-3 py-1 text-xs text-white border rounded-full md:px-4 md:py-1.5 md:text-sm bg-white/10 backdrop-blur-sm border-white/20">
+                          +{blog.tags.length - 3}
+                        </span>
+                      )}
                     </motion.div>
                   )}
 
-                  {/* CTA Buttons */}
+                  {/* CTA Buttons - Centered */}
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.7 }}
-                    className="flex flex-wrap gap-4"
+                    className="flex flex-wrap justify-center gap-3 md:gap-4"
                   >
                     <Link
                       to={`/blogs/${blog._id}`}
-                      className="relative inline-flex items-center px-8 py-4 space-x-3 overflow-hidden transition-all duration-500 shadow-2xl group bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl hover:shadow-amber-500/25"
+                      className="relative inline-flex items-center px-6 py-3 space-x-2 overflow-hidden transition-all duration-500 shadow-2xl md:px-8 md:py-4 lg:px-10 lg:py-4 group bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl hover:shadow-amber-500/25"
                     >
                       <span className="absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></span>
-                      <span className="relative text-lg text-white font-Forum">
+                      <span className="relative text-sm text-white md:text-base lg:text-lg font-Forum">
                         Read Full Story
                       </span>
-                      <TbArrowRight className="relative w-5 h-5 text-white transition-transform group-hover:translate-x-2" />
+                      <TbArrowRight className="relative w-4 h-4 text-white transition-transform md:w-5 md:h-5 group-hover:translate-x-1" />
                     </Link>
 
-                    <button className="relative inline-flex items-center px-8 py-4 space-x-3 transition-all duration-500 border group bg-black/20 backdrop-blur-md rounded-xl border-white/30 hover:bg-black/30">
-                      <TbBookmark className="w-5 h-5 text-white" />
-                      <span className="text-lg text-white font-Forum">
+                    <button className="relative inline-flex items-center px-6 py-3 space-x-2 transition-all duration-500 border group md:px-8 md:py-4 lg:px-10 lg:py-4 bg-black/20 backdrop-blur-md rounded-xl border-white/30 hover:bg-black/30">
+                      <TbBookmark className="w-4 h-4 text-white md:w-5 md:h-5" />
+                      <span className="text-sm text-white md:text-base lg:text-lg font-Forum">
                         Save for Later
                       </span>
                     </button>
@@ -252,11 +261,11 @@ const FeaturedBlogSlider = () => {
             </div>
 
             {/* Slide Counter */}
-            <div className="absolute z-20 text-sm bottom-8 right-8 text-white/80 font-Inter">
-              <span className="text-2xl font-bold text-white">
+            <div className="absolute z-20 text-xs bottom-4 right-4 md:bottom-8 md:right-8 text-white/80 font-Inter">
+              <span className="text-base font-bold text-white md:text-xl lg:text-2xl">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span className="mx-2">/</span>
+              <span className="mx-1">/</span>
               <span>{String(blogs.length).padStart(2, "0")}</span>
             </div>
           </div>
@@ -266,12 +275,12 @@ const FeaturedBlogSlider = () => {
       {/* Autoplay Control */}
       <button
         onClick={toggleAutoplay}
-        className="absolute z-20 flex items-center justify-center w-12 h-12 transition-all duration-300 border rounded-full bottom-8 left-8 bg-black/30 backdrop-blur-md border-white/30 hover:bg-black/50"
+        className="absolute z-20 flex items-center justify-center w-8 h-8 transition-all duration-300 border rounded-full bottom-4 left-4 md:bottom-8 md:left-8 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-black/30 backdrop-blur-md border-white/30 hover:bg-black/50"
       >
         {isPlaying ? (
-          <FaPause className="w-4 h-4 text-white" />
+          <FaPause className="w-3 h-3 text-white md:w-4 md:h-4" />
         ) : (
-          <FaPlay className="w-4 h-4 text-white" />
+          <FaPlay className="w-3 h-3 text-white md:w-4 md:h-4" />
         )}
       </button>
     </div>
